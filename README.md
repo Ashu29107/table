@@ -1,1 +1,1 @@
-Restaurant-booking
+Restaurant-bookin
