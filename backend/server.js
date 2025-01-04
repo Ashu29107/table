@@ -11,6 +11,12 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cors({
+    origin: "http://table-dhdp.vercel.app",
+  }));
+
+// Log MongoDB URI for debugging
+console.log("MongoDB URI:", process.env.MONGO_URI);
 
 
 // Connect to MongoDB using environment variable
@@ -18,11 +24,6 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-
-const cors = require("cors");
-app.use(cors({
-  origin: "http://table-dhdp.vercel.app",
-}));
 
 
 // Connect to MongoDB
