@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: "http://table-dhdp.vercel.app", // Allow requests from your frontend
+    origin: ["http://table-dhdp.vercel.app","http://localhost:3000"] // Allow requests from your frontend
 }));
 app.use(bodyParser.json());
 
