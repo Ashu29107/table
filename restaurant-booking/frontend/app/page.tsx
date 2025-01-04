@@ -31,9 +31,16 @@ export default function Home() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        // Validate input fields
+        if (!date || !time || guests < 1 || !name || !contact) {
+            alert("Please fill in all fields correctly.");
+            return;
+        }
+
         try {
-            const response = await axios.post('https://table-xzqd.onrender.com', {
-                date, 
+            const response = await axios.post('https://table-xzqd.onrender.com/api/booking', {
+                date,
                 time,
                 guests,
                 name,
@@ -42,6 +49,7 @@ export default function Home() {
             setMessage(`Booking confirmed for ${response.data.name} on ${response.data.date} at ${response.data.time}.`);
         } catch (error) {
             console.error("Error submitting form:", error);
+            alert("There was an error processing your booking. Please try again.");
         }
     };
 
