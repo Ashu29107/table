@@ -4,36 +4,26 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
-app.use(bodyParser.json());
 app.use(cors({
-    origin: "http://table-dhdp.vercel.app",
-  }));
+    origin: "http://table-dhdp.vercel.app", // Allow requests from your frontend
+}));
+app.use(bodyParser.json());
 
 // Log MongoDB URI for debugging
 console.log("MongoDB URI:", process.env.MONGO_URI);
 
-
 // Connect to MongoDB using environment variable
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-
-// Connect to MongoDB
-mongoose.connect(
-    'mongodb://localhost:27017/Booking', 
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }
-);
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch((error) => {
+        console.error("MongoDB connection error:", error);
+    });
 
 // Booking Schema
 const bookingSchema = new mongoose.Schema({
@@ -68,7 +58,7 @@ app.get('/api/booking', async (req, res) => {
 });
 
 // Availability Endpoint
-app.get("/api/availability", async (req, res) => { // Changed this line to /api/availability
+app.get("/api/availability", async (req, res) => {
     const { date } = req.query; // Expecting a date query parameter
     try {
         const bookingsOnDate = await Booking.find({ date });
