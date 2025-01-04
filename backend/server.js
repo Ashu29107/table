@@ -10,6 +10,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
+const cors = require("cors");
+app.use(cors({
+  origin: "http://table-dhdp.vercel.app",
+}));
+
+
 // Connect to MongoDB
 mongoose.connect(
     'mongodb://localhost:27017/Booking', 
