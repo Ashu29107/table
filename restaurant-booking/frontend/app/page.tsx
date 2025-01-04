@@ -29,7 +29,7 @@ export default function Home() {
         }
     }, [date]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/api/booking', {
@@ -41,7 +41,7 @@ export default function Home() {
             });
             setMessage(`Booking confirmed for ${response.data.name} on ${response.data.date} at ${response.data.time}.`);
         } catch (error) {
-            setMessage('Error creating booking.');
+            console.error("Error submitting form:", error);
         }
     };
 
@@ -60,7 +60,7 @@ export default function Home() {
                         <option value="">No available slots</option>
                     )}
                 </select>
-                <input type="number" value={guests} onChange={(e) => setGuests(e.target.value)} min="1" required />
+                <input type="number" value={guests} onChange={(e) => setGuests(e.target.value ? parseInt(e.target.value) : 0)} min="1" required />
                 <input type="text" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} required />
                 <input type="text" placeholder="Contact Details" value={contact} onChange={(e) => setContact(e.target.value)} required />
                 <button type="submit">Book Table</button>

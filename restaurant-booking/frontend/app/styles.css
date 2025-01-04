@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: url("C:/TASK/restaurant-booking/frontend/public/images/backgroung_image.jpg") no-repeat center center fixed;
+    background: #000 url("/Background_Image.png") no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
