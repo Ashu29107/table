@@ -17,7 +17,7 @@ export default function Home() {
         if (date) {
             const fetchAvailability = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:5000/api/availability?date=${date}`);
+                    const response = await axios.get(`https://table-xzqd.onrender.com/api/availability?date=${date}`);
                     console.log("Available Slots:", response.data.availableSlots);
                     setAvailableSlots(response.data.availableSlots);
                     setTime(''); // Reset time when date changes
@@ -32,7 +32,7 @@ export default function Home() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/booking', {
+            const response = await axios.post('https://table-xzqd.onrender.com', {
                 date, 
                 time,
                 guests,
