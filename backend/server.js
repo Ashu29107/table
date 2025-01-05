@@ -61,6 +61,9 @@ app.get('/api/booking', async (req, res) => {
 app.get("/api/availability", async (req, res) => {
     const { date } = req.query; // Expecting a date query parameter
     try {
+        if (!date) {
+            return res.status(400).send({ message: "Date is required" });
+        }
         const bookingsOnDate = await Booking.find({ date });
         const availableSlots = [];
         for (let hour = 10; hour <= 22; hour++) { // Assuming slots from 10 AM to 10 PM
@@ -69,11 +72,14 @@ app.get("/api/availability", async (req, res) => {
                 availableSlots.push(slotTime);
             }
         }
+        console.log("Available Slots:", availableSlots); // Log available slots for debugging
         res.status(200).json({ availableSlots });
     } catch (error) {
-        res.status(500).send(error);
+        console.error("Error fetching availability:", error); // Log the error for debugging
+        res.status(500).send({ message: "Internal Server Error" });
     }
 });
+
 
 // Start Server
 app.listen(PORT, () => {

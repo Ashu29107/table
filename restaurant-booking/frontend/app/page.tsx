@@ -18,7 +18,7 @@ export default function Home() {
             const fetchAvailability = async () => {
                 try {
                     const response = await axios.get(`https://table-xzqd.onrender.com/api/availability?date=${date}`);
-                    console.log("Available Slots:", response.data.availableSlots);
+                    console.log("API Response:", response.data); // Log API response
                     setAvailableSlots(response.data.availableSlots);
                     setTime(''); // Reset time when date changes
                 } catch (error) {
@@ -28,6 +28,7 @@ export default function Home() {
             fetchAvailability();
         }
     }, [date]);
+    
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
